@@ -26,3 +26,23 @@ def LooseMin(f, fp, x0, Niter, apha0, beta0):
     aphak = ep
     
     return L, aphak
+
+
+def f(x):
+    return 10 * (x[1] - x[0]**2)**2 + (x[0] - 1)**2
+
+def fp(x):
+    return np.array([2*x[0] - 40 * x[0] * (-x[0]**2 + x[1]) - 2,
+                     -20 * x[0]**2 + 20 * x[1]]) 
+x0 = np.array([4, 1])
+apha0 = 1
+beta0 = 0.7
+Niter = 200
+
+Loss, aphak = LooseMin(f, fp, x0, Niter, apha0, beta0)
+print(Loss)
+plt.plot(np.arange(1, len(Loss)+1), Loss)
+plt.xlabel('Iteration')
+plt.ylabel('Loss')
+plt.show()
+
