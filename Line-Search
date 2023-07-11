@@ -1,0 +1,28 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+def LooseMin(f, fp, x0, Niter, apha0, beta0):
+    x = x0
+    ep = apha0
+    beta1 = beta0
+    H =[]
+    iter = 0
+    
+    while iter < Niter:
+        L1 = f(x - ep * fp(x))
+        L2 = f(x) - (ep / 2) * np.linalg.norm(fp(x))**2
+        
+        if L1 > L2:
+            ep = ep * beta1
+        
+        if L1 <= L2:
+            break
+        
+        iter+=1
+        H.append(f(x+ep*fp(x)))
+        
+    
+    L = H
+    aphak = ep
+    
+    return L, aphak
